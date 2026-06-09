@@ -33,6 +33,8 @@ interface FormErrors {
   name?: string;
   email?: string;
   message?: string;
+  /** Generic server error returned by /api/contact. */
+  server?: string;
 }
 
 const LABEL_CLASS = "text-xs tracking-[0.2em] uppercase text-ink/60";
@@ -63,6 +65,7 @@ export function ContactSheet({
     date: "",
   });
   const [errors, setErrors] = React.useState<FormErrors>({});
+  const [submitting, setSubmitting] = React.useState(false);
 
   // After a successful submit, reset state once the sheet has closed so the
   // next open starts clean. Scheduled inside onOpenChange (not an effect) to
@@ -107,7 +110,7 @@ export function ContactSheet({
     return next;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors = validate();
     if (Object.keys(nextErrors).length > 0) {
@@ -115,14 +118,41 @@ export function ContactSheet({
       return;
     }
     setErrors({});
-    // Phase 2 may wire this to a real endpoint; for now we just confirm receipt.
-    setSubmitted(true);
-    // Auto-close the sheet after the confirmation has had time to read.
-    // onOpenChange handles the post-close state reset via scheduleReset().
-    autoCloseTimer.current = window.setTimeout(() => {
-      setOpen(false);
-      autoCloseTimer.current = null;
-    }, 2500);
+    setSubmitting(true);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      if (!res.ok) {
+        const data = (await res.json().catch(() => ({}))) as {
+          error?: string;
+        };
+        setErrors({
+          server:
+            data.error ??
+            "Couldn't send right now — please try again or email directly.",
+        });
+        setSubmitting(false);
+        return;
+      }
+
+      setSubmitting(false);
+      setSubmitted(true);
+      autoCloseTimer.current = window.setTimeout(() => {
+        setOpen(false);
+        autoCloseTimer.current = null;
+      }, 2500);
+    } catch {
+      setErrors({
+        server:
+          "Couldn't reach the server — please try again or email directly.",
+      });
+      setSubmitting(false);
+    }
   };
 
   const errorEntries = Object.entries(errors).filter(([, msg]) => Boolean(msg));
@@ -293,9 +323,10 @@ export function ContactSheet({
               <Button
                 type="submit"
                 size="lg"
-                className="w-full tracking-[0.2em] uppercase"
+                disabled={submitting}
+                className="w-full tracking-[0.2em] uppercase disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Send
+                {submitting ? "Sending…" : "Send"}
               </Button>
             </form>
           )}
