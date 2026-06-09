@@ -1,0 +1,211 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  /* === Palette ============================================================
+     Sampled from Kineena's existing brand banner (public/brand/kk-logo-banner.jpg).
+     The dominant mint is actually a pale aqua-mint, slightly cooler than the
+     spec's target #bfe1d5 — staying faithful to the artist's real banner. */
+  --color-shell: #faf7f1;   /* warm off-white page background */
+  --color-cream: #f1ebde;   /* slightly warmer cream for surfaces */
+  --color-ink: #1c1f24;     /* deep neutral text + buttons */
+  --color-mint: #cef0ef;    /* KK brand mint, sampled from the banner */
+  --color-mist: #d8d3c8;    /* warm grey dividers */
+  --color-rust: #a8553a;    /* sparing warm rust — hover-only brand accent.
+                               Renamed from --color-accent to survive the
+                               shadcn semantic remap below (which claims
+                               `accent` for its own mint/cream semantic). */
+
+  /* === Type ===
+     Fraunces (variable: wght, opsz, SOFT, WONK) as editorial display face;
+     Inter as body. The variable axes let CSS scroll-driven animations morph
+     `font-variation-settings` smoothly for the Hero headline. */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, "Times New Roman",
+    serif;
+
+  --nav-h: 5rem;
+}
+
+/* === Scroll-driven headline morph ============================================
+   Morphs Fraunces' wght + SOFT axes as the user scrolls past the Hero.
+   Top of page  → light, sharp-cornered (400 wght, 0 SOFT)
+   Past 70vh    → heavier, soft-cornered (600 wght, 100 SOFT)
+   No JS — runs on the compositor thread.
+   `@supports` guard makes browsers without animation-timeline silently skip. */
+@keyframes hero-headline-morph {
+  from {
+    font-variation-settings: "wght" 400, "SOFT" 0, "opsz" 144, "WONK" 0;
+  }
+  to {
+    font-variation-settings: "wght" 600, "SOFT" 100, "opsz" 96, "WONK" 0;
+  }
+}
+@supports (animation-timeline: scroll()) {
+  .morph-headline {
+    animation: hero-headline-morph linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 70vh;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .morph-headline {
+    animation: none;
+  }
+}
+
+/* === Scroll-driven entrance utilities =======================================
+   Pure CSS scroll-driven animations via `animation-timeline: view()`.
+   No JS scroll listeners, no IntersectionObserver — the browser handles it.
+   Unsupported browsers (Firefox without flag, older Safari) silently skip:
+   the elements just remain visible in their final state. */
+@keyframes scroll-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes scroll-draw-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@supports (animation-timeline: view()) {
+  .scroll-fade-up {
+    animation: scroll-fade-up linear both;
+    animation-timeline: view();
+    animation-range: entry 5% cover 35%;
+  }
+  .scroll-draw-x {
+    animation: scroll-draw-x linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 40%;
+    transform-origin: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-fade-up,
+  .scroll-draw-x {
+    animation: none;
+  }
+}
+
+/* === Marquee ============================================================== */
+@keyframes marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.marquee-track {
+  animation: marquee-x 38s linear infinite;
+}
+.catalog-marquee {
+  animation: marquee-x 70s linear infinite;
+}
+.catalog-marquee:hover {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .catalog-marquee {
+    animation: none;
+  }
+}
+
+/* === Caption crossfade (StudioInterlude title swap) ======================= */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.caption-fade {
+  animation: fade-in 0.45s ease-out both;
+}
+
+
+/* === Menu attention pulse ================================================
+   Slow breathing on the floating MENU capsule to draw the eye on first
+   load. The shadow ring expands and contracts every ~3s. Stops on hover
+   (transition takes over) and on reduced-motion (class not applied). */
+@keyframes menu-pulse {
+  0%, 100% {
+    box-shadow: 0 14px 45px -10px rgba(28, 31, 36, 0.55),
+      0 0 0 0 rgba(206, 240, 239, 0.65);
+  }
+  50% {
+    box-shadow: 0 14px 45px -10px rgba(28, 31, 36, 0.55),
+      0 0 0 16px rgba(206, 240, 239, 0);
+  }
+}
+.menu-pulse {
+  animation: menu-pulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* shadcn semantic remap → every Base UI primitive (Sheet, Dialog, etc.) keeps
+   working because its tokens point at OUR palette. */
+@theme inline {
+  --color-background: var(--color-shell);
+  --color-foreground: var(--color-ink);
+  --color-card: var(--color-shell);
+  --color-card-foreground: var(--color-ink);
+  --color-popover: var(--color-shell);
+  --color-popover-foreground: var(--color-ink);
+  --color-primary: var(--color-ink);
+  --color-primary-foreground: var(--color-shell);
+  --color-secondary: var(--color-cream);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted: var(--color-cream);
+  --color-muted-foreground: color-mix(in srgb, var(--color-ink) 60%, transparent);
+  --color-accent: var(--color-mint);
+  --color-accent-foreground: var(--color-ink);
+  --color-destructive: #9b2c2c;
+  --color-border: var(--color-mist);
+  --color-input: var(--color-mist);
+  --color-ring: var(--color-ink);
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after,
+  ::backdrop {
+    border-color: var(--color-border, currentColor);
+  }
+
+  /* No `scroll-behavior: smooth` here — Lenis handles smoothing on pages
+     that need it (homepage, /portfolio). Native smooth-scroll-on-html
+     interferes with Lenis's rAF-driven smoothing and causes choppy scroll
+     during ScrollTrigger pin/scrub. */
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-shell);
+  }
+
+  ::selection {
+    background: var(--color-mint);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+}
