@@ -7,7 +7,7 @@ import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Commission a piece, reserve a Paint N Sip seat, or just say hello — replies usually land the same day.",
+    "Commission a piece, reserve a Paint N Sip seat, or just say hello.",
 };
 
 /**
@@ -28,8 +28,7 @@ export default function ContactPage() {
         </h1>
 
         <p className="mt-8 max-w-[55ch] text-base leading-[1.7] text-ink/75 md:text-lg">
-          Commission a piece. Reserve a Paint N Sip seat. Or just say hello
-          &mdash; replies usually land the same day.
+          Commission a piece. Reserve a Paint N Sip seat. Or just say hello.
         </p>
 
         <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-2">
