@@ -132,7 +132,7 @@ export async function POST(request: Request) {
 <html><body style="margin:0;padding:0;background:#faf7f1;font-family:Georgia,serif;color:#1c1f24;">
   <div style="max-width:600px;margin:0 auto;padding:40px 24px;">
     <p style="font-size:11px;letter-spacing:0.32em;text-transform:uppercase;color:#666;margin:0 0 12px;">
-      The Kineena Kang Gallery &mdash; new inquiry
+      Neena Kang Gallery &mdash; new inquiry
     </p>
     <h1 style="font-size:24px;line-height:1.25;margin:0 0 24px;color:#1c1f24;">
       ${escapeHtml(emailSubject)}

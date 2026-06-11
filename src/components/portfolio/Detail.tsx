@@ -79,7 +79,7 @@ export function Detail({ work }: DetailProps) {
           <ContactSheet
             trigger={<Button size="lg">Inquire about this piece</Button>}
             defaultSubject={`Inquiry about *${title}*`}
-            defaultMessage={`Hi Kineena,\n\nI'm interested in "${title}"${work.medium ? ` (${work.medium})` : ""}. Could you share more details?\n`}
+            defaultMessage={`Hi Neena,\n\nI'm interested in "${title}"${work.medium ? ` (${work.medium})` : ""}. Could you share more details?\n`}
           />
           <Link
             href="/portfolio"

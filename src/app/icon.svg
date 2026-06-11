@@ -2,6 +2,6 @@
   <rect width="64" height="64" rx="10" fill="#1c1f24"/>
   <text x="32" y="44" text-anchor="middle"
         font-family="'Fraunces', Georgia, 'Times New Roman', serif"
-        font-weight="600" font-size="32" letter-spacing="-1.5" fill="#faf7f1">KK</text>
+        font-weight="600" font-size="32" letter-spacing="-1.5" fill="#faf7f1">NK</text>
   <circle cx="52" cy="14" r="3" fill="#cef0ef"/>
 </svg>

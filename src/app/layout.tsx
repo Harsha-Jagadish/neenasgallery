@@ -26,7 +26,7 @@ const inter = Inter({
 
 const heroPainting = featuredWorks[0];
 const description =
-  "Original paintings, drawings, and Paint N Sip evenings from Kineena Kang — a working studio on Vancouver Island making landscapes, florals, and portraits intended to evoke emotion.";
+  "Original paintings, drawings, and Paint N Sip evenings from Neena Kang — a working studio making landscapes, florals, and portraits intended to evoke emotion.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   ),
   title: {
     default: `${site.name} — Original paintings & Paint N Sip events`,
-    template: `%s — Kineena Kang`,
+    template: `%s — Neena Kang`,
   },
   description,
   openGraph: {
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
             url: `/art/${heroPainting.file}`,
             width: 1200,
             height: 800,
-            alt: heroPainting.title ?? "Painting by Kineena Kang",
+            alt: heroPainting.title ?? "Painting by Neena Kang",
           },
         ]
       : undefined,

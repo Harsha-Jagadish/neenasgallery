@@ -30,7 +30,7 @@ const QUOTE_LINES = [
  *   Right:      huge serif quote (clamp 2.5rem → 5.5rem) broken into 5
  *               deliberate lines, each revealed via GSAP SplitText word
  *               stagger on scroll-into-view.
- *   Bottom:     "— Kineena Kang" attribution + "Read the full statement →"
+ *   Bottom:     "— Neena Kang" attribution + "Read the full statement →"
  *               link to /about.
  *
  * Background: bg-cream (distinct from CatalogIndex shell above and
@@ -193,7 +193,7 @@ export function ArtistIntro() {
                 Statement by
               </p>
               <p className="mt-2 font-display text-2xl tracking-tight text-ink md:text-3xl">
-                Kineena Kang
+                Neena Kang
               </p>
             </div>
             <Link

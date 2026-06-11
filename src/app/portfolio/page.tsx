@@ -6,7 +6,7 @@ import { PortfolioPage } from "@/components/portfolio/PortfolioPage";
 export const metadata: Metadata = {
   title: "Portfolio",
   description:
-    "Browse all 43 paintings by Kineena Kang — acrylics, watercolours, pencil drawings, and mixed media. Landscapes, seascapes, florals, portraits, and more.",
+    "Browse all 43 paintings by Neena Kang — acrylics, watercolours, pencil drawings, and mixed media. Landscapes, seascapes, florals, portraits, and more.",
 };
 
 interface PageProps {

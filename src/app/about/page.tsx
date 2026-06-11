@@ -5,7 +5,7 @@ import { artistAutobiography, artistStatement } from "@/content/about";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Artist statement and brief biography of Kineena Kang — a working studio making landscapes, florals, portraits, and Paint N Sip events.",
+    "Artist statement and brief biography of Neena Kang — a working studio making landscapes, florals, portraits, and Paint N Sip events.",
 };
 
 /**
@@ -21,7 +21,7 @@ export default function AboutPage() {
         </p>
 
         <h1 className="mt-6 font-display text-4xl leading-[1.05] tracking-[-0.01em] text-ink md:text-5xl">
-          Kineena Kang.
+          Neena Kang.
         </h1>
 
         <div aria-hidden className="mt-12 h-px w-12 bg-mint" />

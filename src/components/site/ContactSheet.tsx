@@ -197,7 +197,7 @@ export function ContactSheet({
                 I&rsquo;ll be in touch soon.
               </p>
               <p className="font-display mt-4 text-lg text-ink/70 italic">
-                — Kineena
+                — Neena
               </p>
             </div>
           ) : (

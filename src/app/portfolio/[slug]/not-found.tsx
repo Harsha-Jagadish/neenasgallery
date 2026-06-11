@@ -13,7 +13,7 @@ export default function NotFound() {
           aria-hidden
           className="pointer-events-none absolute -top-6 left-4 select-none font-display text-[18rem] leading-none tracking-tight text-ink/[0.06] md:-top-10 md:left-8 md:text-[26rem]"
         >
-          KK
+          NK
         </span>
 
         <div className="relative mx-auto w-full max-w-[1200px] px-6 py-24 md:px-10 md:py-32">

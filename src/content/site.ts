@@ -3,8 +3,8 @@
  * from here so renaming or relinking is a one-file change.
  */
 export const site = {
-  name: "the Kineena Kang Gallery",
-  monogram: "KK",
+  name: "Neena Kang Gallery",
+  monogram: "NK",
   tagline: "Original paintings & Paint N Sip events.",
   nav: [
     { href: "/portfolio", label: "Work" },

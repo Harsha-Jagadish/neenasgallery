@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = work.title ?? "Untitled";
   const description = work.description
     ? work.description
-    : `${title}${work.medium ? ` — ${work.medium}` : ""}${work.year ? `, ${work.year}` : ""} by Kineena Kang.`;
+    : `${title}${work.medium ? ` — ${work.medium}` : ""}${work.year ? `, ${work.year}` : ""} by Neena Kang.`;
 
   return {
     title,

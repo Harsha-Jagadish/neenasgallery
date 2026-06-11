@@ -34,14 +34,18 @@ export function StudioInterlude() {
   const hintRef = useRef<HTMLParagraphElement>(null);
   const [active, setActive] = useState(0);
 
+  // First slide is hardcoded to Mountain and Lake (p14-01.jpg) — Neena's
+  // current centerpiece. Remaining slides fill from the rest of the
+  // featured works, landscapes first.
+  const FIRST_PICK_FILE = "p14-01.jpg";
   const picks = useMemo(() => {
-    const landscapes = featuredWorks.filter(
-      (w) => w.orientation === "landscape"
-    );
-    const others = featuredWorks.filter(
-      (w) => w.orientation !== "landscape"
-    );
-    return [...landscapes, ...others].slice(0, SLIDE_COUNT);
+    const first = featuredWorks.find((w) => w.file === FIRST_PICK_FILE);
+    const rest = featuredWorks.filter((w) => w.file !== FIRST_PICK_FILE);
+    const landscapes = rest.filter((w) => w.orientation === "landscape");
+    const others = rest.filter((w) => w.orientation !== "landscape");
+    const queue = [...landscapes, ...others];
+    if (first) return [first, ...queue].slice(0, SLIDE_COUNT);
+    return queue.slice(0, SLIDE_COUNT);
   }, []);
 
   useGSAP(
