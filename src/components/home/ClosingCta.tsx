@@ -77,20 +77,6 @@ export function ClosingCta() {
           ))}
         </h2>
 
-        <motion.p
-          initial={reduceMotion ? false : { opacity: 0, y: 6 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-15%" }}
-          transition={
-            reduceMotion
-              ? undefined
-              : { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const, delay: 0.9 }
-          }
-          className="mx-auto mt-6 max-w-[48ch] text-base leading-[1.7] text-ink/70 md:text-lg"
-        >
-          One quick note &mdash; replies usually land the same day.
-        </motion.p>
-
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 6 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
